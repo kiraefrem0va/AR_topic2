@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AR-маска — очки и шляпа</title>
+  <title>AR-маска — очки и колпак</title>
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-face-aframe.prod.js"></script>
   <style>
@@ -21,10 +21,6 @@
     <a-assets>
       <a-asset-item id="headModel"
         src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/face-tracking/assets/sparkar/headOccluder.glb"></a-asset-item>
-      <a-asset-item id="glassesModel"
-        src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/face-tracking/assets/glasses/scene.gltf"></a-asset-item>
-      <a-asset-item id="hatModel"
-        src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/face-tracking/assets/hat/scene.gltf"></a-asset-item>
     </a-assets>
 
     <a-camera active="false" position="0 0 0" look-controls="enabled: false"></a-camera>
@@ -35,16 +31,29 @@
         position="0 -0.3 0.15" rotation="0 0 0" scale="0.065 0.065 0.065"></a-gltf-model>
     </a-entity>
 
-    <!-- Очки на переносице -->
+    <!-- Очки: привязка к переносице -->
     <a-entity mindar-face-target="anchorIndex: 168">
-      <a-gltf-model src="#glassesModel"
-        position="0 -0.05 -0.1" rotation="0 0 0" scale="0.011 0.011 0.011"></a-gltf-model>
+      <a-entity position="0 0 0.08" scale="1 1 1">
+        <!-- оправа: два кольца -->
+        <a-torus position="-0.2 0 0" radius="0.12" radius-tubular="0.015" color="#222222"></a-torus>
+        <a-torus position="0.2 0 0" radius="0.12" radius-tubular="0.015" color="#222222"></a-torus>
+        <!-- тёмные полупрозрачные стёкла -->
+        <a-circle position="-0.2 0 0" radius="0.11" color="#333333" opacity="0.6"></a-circle>
+        <a-circle position="0.2 0 0" radius="0.11" color="#333333" opacity="0.6"></a-circle>
+        <!-- перемычка над носом -->
+        <a-cylinder position="0 0.02 0" rotation="0 0 90" radius="0.012" height="0.16" color="#222222"></a-cylinder>
+        <!-- дужки, уходят назад к ушам -->
+        <a-box position="-0.33 0 -0.25" width="0.02" height="0.02" depth="0.5" color="#222222"></a-box>
+        <a-box position="0.33 0 -0.25" width="0.02" height="0.02" depth="0.5" color="#222222"></a-box>
+      </a-entity>
     </a-entity>
 
-    <!-- Шляпа на лбу -->
+    <!-- Колпак: привязка к верху лба -->
     <a-entity mindar-face-target="anchorIndex: 10">
-      <a-gltf-model src="#hatModel"
-        position="0 1.25 -0.7" rotation="0 0 0" scale="0.45 0.45 0.45"></a-gltf-model>
+      <a-entity position="0 0.35 -0.35" rotation="-10 0 0" scale="1 1 1">
+        <a-cone radius-bottom="0.35" radius-top="0" height="0.7" color="#e94b8a"></a-cone>
+        <a-sphere position="0 0.38 0" radius="0.07" color="#ffd23f"></a-sphere>
+      </a-entity>
     </a-entity>
   </a-scene>
 </body>
